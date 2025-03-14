@@ -131,4 +131,17 @@ const buckets1: BucketMap = new Map([
   ],
 ]);
 
+const buckets2: BucketMap = new Map([
+  [0, new Set<Flashcard>()],
+  [1, new Set<Flashcard>()],
+  [
+    2,
+    new Set<Flashcard>([
+      new Flashcard("What is 2+2?", "4", "A simple addition question", [
+        "math",
+      ]),
+    ]),
+  ],
+]);
 console.log(getBucketRange(buckets1));
+console.log(getBucketRange(buckets2));
