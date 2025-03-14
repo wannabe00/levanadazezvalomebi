@@ -19,7 +19,6 @@ import { Flashcard, AnswerDifficulty, BucketMap } from "./flashcards";
  * @spec.requires buckets is a valid representation of flashcard buckets.
  */
 export function toBucketSets(buckets: BucketMap): Array<Set<Flashcard>> {
-  
   throw new Error("Implement me!");
 }
 
@@ -32,10 +31,18 @@ export function toBucketSets(buckets: BucketMap): Array<Set<Flashcard>> {
  * @spec.requires buckets is a valid Array-of-Set representation of flashcard buckets.
  */
 export function getBucketRange(
-  buckets: Array<Set<Flashcard>>
+  buckets: BucketMap
 ): { minBucket: number; maxBucket: number } | undefined {
-  // TODO: Implement this function
-  throw new Error("Implement me!");
+  const nonEmptyBuckets = Array.from(buckets.entries())
+    .filter(([_, set]) => set.size > 0)
+    .map(([index, _]) => index);
+
+  if (nonEmptyBuckets.length === 0) return undefined;
+
+  return {
+    minBucket: Math.min(...nonEmptyBuckets),
+    maxBucket: Math.max(...nonEmptyBuckets),
+  };
 }
 
 /**
@@ -98,3 +105,30 @@ export function computeProgress(buckets: any, history: any): any {
   // TODO: Implement this function (and define the spec!)
   throw new Error("Implement me!");
 }
+
+const buckets1: BucketMap = new Map([
+  [0, new Set<Flashcard>()],
+  [1, new Set<Flashcard>()],
+  [
+    2,
+    new Set<Flashcard>([
+      new Flashcard("What is 2+2?", "4", "A simple addition question", [
+        "math",
+      ]),
+    ]),
+  ],
+  [3, new Set<Flashcard>()],
+  [
+    4,
+    new Set<Flashcard>([
+      new Flashcard(
+        "What is the capital of France?",
+        "Paris",
+        "A European city",
+        ["geography"]
+      ),
+    ]),
+  ],
+]);
+
+console.log(getBucketRange(buckets1));
