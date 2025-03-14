@@ -16,7 +16,7 @@ import {
  */
 describe("toBucketSets()", () => {
   it("handle empty input", () => {
-    const buckets = new Map();
+    const buckets:BucketMap = new Map();
     assert.deepEqual(toBucketSets(buckets), []);
   });
   it("handle single bucket", () => {
